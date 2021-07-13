@@ -6,7 +6,9 @@
         {{ currentWeather?.sys?.country }}, <span>{{ currentWeather?.name }}</span>
       </div>
       <div class="current-weather__info-degree">19 <span>°C</span></div>
-      <div class="current-weather__info-day">Monday, <span>16:00</span></div>
+      <div class="current-weather__info-day">
+        {{ datOfWeek[day - 1] }}, <span>{{ currentTime }}</span>
+      </div>
       <div class="current-weather__info-temperature">
         Clouds - {{ currentWeather?.clouds?.all }}%
       </div>
@@ -17,11 +19,15 @@
 
 <script>
 import { fetchCurrentWeather, fetchGeolocation } from '../api/api';
+import { getCreatedTime } from '../utils/utils';
 
 export default {
   data() {
     return {
       currentWeather: {},
+      datOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday '],
+      day: new Date().getDay(),
+      currentTime: getCreatedTime(new Date().getTime()),
     };
   },
   mounted() {
