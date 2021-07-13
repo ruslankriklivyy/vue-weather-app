@@ -4,16 +4,17 @@
       <div class="content">
         <input-search />
         <current-weather
-          :currentWeather="currentWeather"
+          :currentWeather="currentWeather.current"
           :tempMax="tempMax"
           :currentUnit="currentUnit"
+          :countryInfo="country"
         />
       </div>
     </div>
     <div class="right-section">
       <div class="content">
         <picker v-model="currentUnit" v-model:tempMax="tempMax" :currentWeather="currentWeather" />
-        <list-weather />
+        <list-weather :weather="currentWeather.daily" :currentUnit="currentUnit" />
       </div>
     </div>
   </div>
@@ -25,6 +26,7 @@ import CurrentWeather from './components/CurrentWeather.vue';
 import ListWeather from './components/ListWeather.vue';
 import Picker from './components/Picker.vue';
 import { fetchCurrentWeather, fetchGeolocation } from './api/api';
+import { getTemp } from './utils/utils';
 
 export default {
   name: 'App',
@@ -38,23 +40,27 @@ export default {
     return {
       currentWeather: {},
       currentUnit: 'C',
+      country: {},
       tempMax: 0,
     };
   },
   mounted() {
     if (localStorage.getItem('geolocation')) {
+      const countryInfo = JSON.parse(localStorage.getItem('geolocation'));
+      this.country = countryInfo;
       const loc = fetchGeolocation();
       fetchCurrentWeather(loc[0], loc[1]).then((res) => {
         this.currentWeather = res;
-        if (this.currentUnit === 'C') {
-          this.tempMax = Math.round(res.main.temp_max - 273.15);
-        } else {
-          this.tempMax = Math.round(1.8 * (res.main.temp_max - 273.15) + 32);
-        }
+        console.log(this.currentWeather);
+        this.tempMax = getTemp(this.currentUnit, res.current.temp);
       });
     } else {
       fetchGeolocation().then((res) => {
-        fetchCurrentWeather(res[0], res[1]).then((res) => (this.currentWeather = res));
+        this.country = res;
+        fetchCurrentWeather(res[0], res[1]).then((res) => {
+          this.currentWeather = res;
+          this.tempMax = getTemp(this.currentUnit, res.current.temp);
+        });
       });
     }
   },

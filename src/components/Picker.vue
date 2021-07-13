@@ -36,9 +36,9 @@ export default {
   methods: {
     changeCurrentUnit(type) {
       if (type === 'C') {
-        this.tempMax = Math.round(this.currentWeather.main.temp_max - 273.15);
+        this.tempMax = Math.round(this.currentWeather.current.temp - 273.15);
       } else {
-        this.tempMax = Math.round(1.8 * (this.currentWeather.main.temp_max - 273.15) + 32);
+        this.tempMax = Math.round(1.8 * (this.currentWeather.current.temp - 273.15) + 32);
       }
       this.$emit('update:tempMax', this.tempMax);
       this.$emit('update:modelValue', type);

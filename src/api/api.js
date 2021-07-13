@@ -1,10 +1,10 @@
 import axios from 'axios';
 
+const $api_id = '113193fbf09780b61264cc0a259fc574';
+
 export const fetchCurrentWeather = async (lat, lon) => {
   const res = await axios
-    .get(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=113193fbf09780b61264cc0a259fc574`,
-    )
+    .get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${$api_id}`)
     .then(({ data }) => data);
   return res;
 };
@@ -29,3 +29,11 @@ export const fetchGeolocation = () => {
     });
   }
 };
+
+// export const fetchWeatherWeek = async (lat, lon) => {
+//   const res = await axios
+//     .get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${$api_id}`)
+//     .then(({ data }) => data);
+//   console.log(res);
+//   return res;
+// };

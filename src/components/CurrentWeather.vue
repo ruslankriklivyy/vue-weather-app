@@ -3,7 +3,7 @@
     <img src="../assets/cloud.svg" alt="cloud svg" />
     <div class="current-weather__info">
       <div class="current-weather__info-city">
-        {{ currentWeather?.sys?.country }}, <span>{{ currentWeather?.name }}</span>
+        {{ countryInfo?.country }}, <span>{{ countryInfo?.city }}</span>
       </div>
       <div class="current-weather__info-degree">
         {{ tempMax }} <span>°{{ currentUnit }}</span>
@@ -11,9 +11,7 @@
       <div class="current-weather__info-day">
         {{ datOfWeek[day - 1] }}, <span>{{ currentTime }}</span>
       </div>
-      <div class="current-weather__info-temperature">
-        Clouds - {{ currentWeather?.clouds?.all }}%
-      </div>
+      <div class="current-weather__info-temperature">Clouds - {{ currentWeather?.clouds }}%</div>
       <div class="current-weather__info-percent">Rain - 30%</div>
     </div>
   </div>
@@ -25,6 +23,10 @@ import { getCreatedTime } from '../utils/utils';
 export default {
   props: {
     currentWeather: {
+      type: Object,
+      required: true,
+    },
+    countryInfo: {
       type: Object,
       required: true,
     },
