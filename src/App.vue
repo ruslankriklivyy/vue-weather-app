@@ -1,29 +1,38 @@
 <template>
   <div class="main">
     <div class="left-section">
-      <div class="left-section__content">
+      <div class="content">
         <input-search />
         <current-weather />
       </div>
     </div>
-    <div class="right-section"></div>
+    <div class="right-section">
+      <div class="content">
+        <picker />
+        <list-weather />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import InputSearch from './components/InputSearch.vue';
 import CurrentWeather from './components/CurrentWeather.vue';
+import ListWeather from './components/ListWeather.vue';
+import Picker from './components/Picker.vue';
 
 export default {
   name: 'App',
   components: {
     InputSearch,
     CurrentWeather,
+    ListWeather,
+    Picker,
   },
 };
 </script>
 
-<style CurrentWeather lang="scss">
+, ListWeather<style CurrentWeather lang="scss">
 * {
   margin: 0;
   padding: 0;
@@ -40,16 +49,17 @@ body {
   display: flex;
 }
 .left-section {
-  padding-top: 25px;
-  width: 25%;
+  padding-top: 15px;
+  width: 30%;
   height: 100vh;
   background: #fff;
-  &__content {
-    padding: 20px;
-  }
+}
+.content {
+  padding: 30px;
 }
 .right-section {
-  width: 75%;
+  width: 70%;
   height: 100vh;
+  padding-top: 15px;
 }
 </style>
