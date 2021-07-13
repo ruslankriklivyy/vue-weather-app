@@ -5,7 +5,9 @@
       <div class="current-weather__info-city">
         {{ currentWeather?.sys?.country }}, <span>{{ currentWeather?.name }}</span>
       </div>
-      <div class="current-weather__info-degree">19 <span>°C</span></div>
+      <div class="current-weather__info-degree">
+        {{ tempMax }} <span>°{{ currentUnit }}</span>
+      </div>
       <div class="current-weather__info-day">
         {{ datOfWeek[day - 1] }}, <span>{{ currentTime }}</span>
       </div>
@@ -18,27 +20,34 @@
 </template>
 
 <script>
-import { fetchCurrentWeather, fetchGeolocation } from '../api/api';
 import { getCreatedTime } from '../utils/utils';
 
 export default {
+  props: {
+    currentWeather: {
+      type: Object,
+      required: true,
+    },
+    tempMax: {
+      type: Number,
+      required: true,
+    },
+    currentUnit: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
-      currentWeather: {},
       datOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday '],
       day: new Date().getDay(),
       currentTime: getCreatedTime(new Date().getTime()),
     };
   },
-  mounted() {
-    if (localStorage.getItem('geolocation')) {
-      const loc = fetchGeolocation();
-      fetchCurrentWeather(loc[0], loc[1]).then((res) => (this.currentWeather = res));
-    } else {
-      fetchGeolocation().then((res) => {
-        fetchCurrentWeather(res[0], res[1]).then((res) => (this.currentWeather = res));
-      });
-    }
+  created() {
+    setInterval(() => {
+      this.currentTime = getCreatedTime(new Date().getTime());
+    }, 1000);
   },
 };
 </script>
@@ -69,10 +78,6 @@ export default {
       span {
         opacity: 0.7;
       }
-    }
-    &-temperature {
-    }
-    &-percent {
     }
   }
 }
