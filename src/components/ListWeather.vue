@@ -1,7 +1,7 @@
 <template>
   <div class="list">
     <list-weather-item
-      v-for="item in weather"
+      v-for="item in weather?.slice(1, 8)"
       :key="item"
       :temp="item.temp"
       :currentUnit="currentUnit"

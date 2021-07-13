@@ -7,7 +7,7 @@
       <img src="../assets/cloud.svg" alt="cloud svg" />
     </div>
     <div class="list-item__temperature">
-      {{ getItemTemp(temp.day) }}° <span>{{ getItemTemp(temp.night) }}°</span>
+      {{ getItemTemp(temp.max) }}° <span>{{ getItemTemp(temp.min) }}°</span>
     </div>
   </div>
 </template>
