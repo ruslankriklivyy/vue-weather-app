@@ -56,6 +56,8 @@ export default {
 .current-weather {
   img {
     display: block;
+    width: 90%;
+    height: 80%;
   }
   &__info {
     &-city {

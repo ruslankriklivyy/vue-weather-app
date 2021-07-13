@@ -6,20 +6,14 @@
     </div>
     <div class="pick-measur" :v-model="modelValue" :v-model:tempMax="tempMax">
       <button
-        @click="changeCurrentUnit('C')"
+        v-for="unit in units"
+        :key="unit"
+        @click="changeCurrentUnit(unit)"
         :class="{
-          active: modelValue === 'C',
+          active: modelValue === unit,
         }"
       >
-        °C
-      </button>
-      <button
-        @click="changeCurrentUnit('F')"
-        :class="{
-          active: modelValue === 'F',
-        }"
-      >
-        °F
+        °{{ unit }}
       </button>
     </div>
   </div>
@@ -33,6 +27,11 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      units: ['C', 'F'],
+    };
   },
   methods: {
     changeCurrentUnit(type) {
