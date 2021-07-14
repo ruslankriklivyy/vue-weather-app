@@ -7,7 +7,8 @@
       <img src="../assets/cloud.svg" alt="cloud svg" />
     </div>
     <div class="list-item__temperature">
-      {{ getItemTemp(temp.max) }}° <span>{{ getItemTemp(temp.min) }}°</span>
+      {{ currentType === 'Week' ? getItemTemp(temp.max) : getItemTemp(temp) }}°
+      <span v-if="currentType === 'Week'">{{ getItemTemp(temp.min) }}°</span>
     </div>
   </div>
 </template>
@@ -39,7 +40,7 @@ export default {
       return getTemp(this.currentUnit, temp);
     },
     getTime() {
-      return getCreatedTime(new Date(this.weatherDate * 100));
+      return getCreatedTime(new Date(this.weatherDate * 1000));
     },
   },
 };

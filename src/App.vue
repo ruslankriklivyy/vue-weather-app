@@ -20,7 +20,7 @@
           :currentWeather="currentWeather"
         />
         <list-weather
-          :weather="currentWeather.daily"
+          :weather="currentWeather"
           :currentUnit="currentUnit"
           :currentType="currentType"
         />

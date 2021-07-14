@@ -1,7 +1,17 @@
 <template>
-  <div class="list">
+  <div class="list" v-if="currentType === 'Week'">
     <list-weather-item
-      v-for="item in weather?.slice(1, 8)"
+      v-for="item in weather?.daily?.slice(1, 8)"
+      :key="item.dt"
+      :temp="item.temp"
+      :currentUnit="currentUnit"
+      :weatherDate="item.dt"
+      :currentType="currentType"
+    />
+  </div>
+  <div class="list" v-else>
+    <list-weather-item
+      v-for="item in weather?.hourly?.slice(1, 8)"
       :key="item.dt"
       :temp="item.temp"
       :currentUnit="currentUnit"
