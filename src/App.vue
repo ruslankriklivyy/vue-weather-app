@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="left-section">
-      <div class="content">
+      <div class="content" v-if="currentWeather.current">
         <input-search />
         <current-weather
           :currentWeather="currentWeather.current"

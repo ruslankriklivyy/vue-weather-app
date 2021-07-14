@@ -1,6 +1,6 @@
 <template>
   <div class="current-weather">
-    <img src="../assets/cloud.svg" alt="cloud svg" />
+    <img :src="weatherImg" alt="weather svg" />
     <div class="current-weather__info">
       <div class="current-weather__info-city">
         {{ countryInfo?.country }}, <span>{{ countryInfo?.city }}</span>
@@ -19,6 +19,7 @@
 
 <script>
 import { getCreatedTime } from '../utils/utils';
+import { changeWeatherImg } from '../utils/changeWeatherImg';
 
 export default {
   props: {
@@ -44,7 +45,11 @@ export default {
       datOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday '],
       day: new Date().getDay(),
       currentTime: getCreatedTime(new Date().getTime()),
+      weatherImg: '',
     };
+  },
+  mounted() {
+    this.weatherImg = changeWeatherImg(this.currentWeather.weather[0].id);
   },
   created() {
     setInterval(() => {
@@ -58,8 +63,9 @@ export default {
 .current-weather {
   img {
     display: block;
-    width: 90%;
+    width: 80%;
     height: 80%;
+    margin: 20px 0;
   }
   &__info {
     &-city {

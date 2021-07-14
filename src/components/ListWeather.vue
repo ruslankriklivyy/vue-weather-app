@@ -7,6 +7,7 @@
       :currentUnit="currentUnit"
       :weatherDate="item.dt"
       :currentType="currentType"
+      :weatherId="item.weather[0].id"
     />
   </div>
   <div class="list" v-else>
@@ -17,6 +18,7 @@
       :currentUnit="currentUnit"
       :weatherDate="item.dt"
       :currentType="currentType"
+      :weatherId="item.weather[0].id"
     />
   </div>
 </template>

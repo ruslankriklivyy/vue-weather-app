@@ -4,7 +4,7 @@
       {{ currentType === 'Week' ? new Date(weatherDate * 1000).toString().slice(0, 4) : getTime() }}
     </div>
     <div class="list-item__img">
-      <img src="../assets/cloud.svg" alt="cloud svg" />
+      <img :src="weatherImg" alt="cloud svg" />
     </div>
     <div class="list-item__temperature">
       {{ currentType === 'Week' ? getItemTemp(temp.max) : getItemTemp(temp) }}°
@@ -15,6 +15,7 @@
 
 <script>
 import { getTemp, getCreatedTime } from '../utils/utils';
+import { changeWeatherImg } from '../utils/changeWeatherImg';
 
 export default {
   props: {
@@ -26,6 +27,10 @@ export default {
       type: String,
       required: true,
     },
+    weatherId: {
+      type: Number,
+      required: true,
+    },
     currentType: {
       type: String,
       required: true,
@@ -34,6 +39,14 @@ export default {
       type: Number,
       required: true,
     },
+  },
+  data() {
+    return {
+      weatherImg: '',
+    };
+  },
+  mounted() {
+    this.weatherImg = changeWeatherImg(this.weatherId);
   },
   methods: {
     getItemTemp(temp) {
@@ -68,6 +81,10 @@ export default {
     width: 70px;
     height: 70px;
     margin: 20px auto;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
   &__temperature {
     font-weight: 500;
