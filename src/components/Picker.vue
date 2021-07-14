@@ -62,6 +62,7 @@ export default {
     font-size: 22px;
     cursor: pointer;
     transition: all 0.3s ease;
+
     &:first-child {
       margin-right: 20px;
     }
@@ -75,6 +76,7 @@ export default {
   display: flex;
   align-items: center;
   button {
+    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.4);
     font-weight: 500;
     opacity: 0.5;
     width: 50px;

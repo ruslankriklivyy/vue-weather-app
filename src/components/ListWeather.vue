@@ -2,9 +2,10 @@
   <div class="list">
     <list-weather-item
       v-for="item in weather?.slice(1, 8)"
-      :key="item"
+      :key="item.dt"
       :temp="item.temp"
       :currentUnit="currentUnit"
+      :weatherDate="item.dt"
     />
   </div>
 </template>
@@ -25,12 +26,6 @@ export default {
       type: String,
       required: true,
     },
-  },
-  data() {
-    return {
-      tempDay: 0,
-      tempNight: 0,
-    };
   },
 };
 </script>

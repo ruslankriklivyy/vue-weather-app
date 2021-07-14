@@ -15,6 +15,9 @@
       <div class="content">
         <picker v-model="currentUnit" v-model:tempMax="tempMax" :currentWeather="currentWeather" />
         <list-weather :weather="currentWeather.daily" :currentUnit="currentUnit" />
+        <div class="today-info">
+          <div class="today-info__item"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -85,7 +88,7 @@ body {
 }
 .left-section {
   padding-top: 15px;
-  width: 30%;
+  width: 27%;
   height: 100vh;
   background: #fff;
 }
@@ -93,7 +96,7 @@ body {
   padding: 30px;
 }
 .right-section {
-  width: 70%;
+  width: 73%;
   height: 100vh;
   padding-top: 15px;
 }

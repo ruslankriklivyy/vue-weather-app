@@ -1,7 +1,7 @@
 <template>
   <div class="list-item">
     <div class="list-item__day">
-      Mon
+      {{ new Date(weatherDate * 1000).toString().slice(0, 4) }}
     </div>
     <div class="list-item__img">
       <img src="../assets/cloud.svg" alt="cloud svg" />
@@ -25,6 +25,10 @@ export default {
       type: String,
       required: true,
     },
+    weatherDate: {
+      type: Number,
+      required: true,
+    },
   },
   methods: {
     getItemTemp(temp) {
@@ -38,13 +42,16 @@ export default {
 .list-item {
   text-align: center;
   padding: 15px;
-  width: 140px;
-  height: 190px;
+  width: 130px;
+  height: 180px;
   background: #fff;
   border-radius: 20px;
-  margin-right: 15px;
-  margin-bottom: 15px;
-
+  margin-right: 20px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  &:hover {
+    transform: scale(1.03);
+  }
   &__day {
     font-weight: 500;
     font-size: 18px;
