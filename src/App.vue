@@ -13,8 +13,17 @@
     </div>
     <div class="right-section">
       <div class="content">
-        <picker v-model="currentUnit" v-model:tempMax="tempMax" :currentWeather="currentWeather" />
-        <list-weather :weather="currentWeather.daily" :currentUnit="currentUnit" />
+        <picker
+          v-model="currentUnit"
+          v-model:tempMax="tempMax"
+          v-model:currentType="currentType"
+          :currentWeather="currentWeather"
+        />
+        <list-weather
+          :weather="currentWeather.daily"
+          :currentUnit="currentUnit"
+          :currentType="currentType"
+        />
         <div class="today-info">
           <div class="today-info__item"></div>
         </div>
@@ -43,6 +52,7 @@ export default {
     return {
       currentWeather: {},
       currentUnit: 'C',
+      currentType: 'Week',
       country: {},
       tempMax: 0,
     };

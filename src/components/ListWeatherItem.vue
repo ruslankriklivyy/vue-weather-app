@@ -1,7 +1,7 @@
 <template>
   <div class="list-item">
     <div class="list-item__day">
-      {{ new Date(weatherDate * 1000).toString().slice(0, 4) }}
+      {{ currentType === 'Week' ? new Date(weatherDate * 1000).toString().slice(0, 4) : getTime() }}
     </div>
     <div class="list-item__img">
       <img src="../assets/cloud.svg" alt="cloud svg" />
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { getTemp } from '../utils/utils';
+import { getTemp, getCreatedTime } from '../utils/utils';
 
 export default {
   props: {
@@ -25,6 +25,10 @@ export default {
       type: String,
       required: true,
     },
+    currentType: {
+      type: String,
+      required: true,
+    },
     weatherDate: {
       type: Number,
       required: true,
@@ -33,6 +37,9 @@ export default {
   methods: {
     getItemTemp(temp) {
       return getTemp(this.currentUnit, temp);
+    },
+    getTime() {
+      return getCreatedTime(new Date(this.weatherDate * 100));
     },
   },
 };

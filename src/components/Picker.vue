@@ -1,8 +1,16 @@
 <template>
   <div class="head">
     <div class="pick-day">
-      <button>Today</button>
-      <button>Week</button>
+      <button
+        v-for="type in types"
+        :key="type"
+        :class="{
+          active: type === currentType,
+        }"
+        @click="changeCurrentType(type)"
+      >
+        {{ type }}
+      </button>
     </div>
     <div class="pick-measur" :v-model="modelValue" :v-model:tempMax="tempMax">
       <button
@@ -27,10 +35,15 @@ export default {
       type: Object,
       required: true,
     },
+    currentType: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
       units: ['C', 'F'],
+      types: ['Today', 'Week'],
     };
   },
   methods: {
@@ -42,6 +55,9 @@ export default {
       }
       this.$emit('update:tempMax', this.tempMax);
       this.$emit('update:modelValue', type);
+    },
+    changeCurrentType(type) {
+      this.$emit('update:currentType', type);
     },
   },
 };
@@ -55,11 +71,11 @@ export default {
 }
 .pick-day {
   button {
-    font-weight: 500;
+    font-weight: 600;
     opacity: 0.5;
     background: transparent;
     border: none;
-    font-size: 22px;
+    font-size: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
 
@@ -67,6 +83,10 @@ export default {
       margin-right: 20px;
     }
     &:hover {
+      color: #66a0fd;
+      opacity: 1;
+    }
+    &.active {
       color: #66a0fd;
       opacity: 1;
     }

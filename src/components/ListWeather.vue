@@ -6,6 +6,7 @@
       :temp="item.temp"
       :currentUnit="currentUnit"
       :weatherDate="item.dt"
+      :currentType="currentType"
     />
   </div>
 </template>
@@ -20,6 +21,10 @@ export default {
   props: {
     weather: {
       type: Array,
+      required: true,
+    },
+    currentType: {
+      type: String,
       required: true,
     },
     currentUnit: {
