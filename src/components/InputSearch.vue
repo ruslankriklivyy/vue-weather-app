@@ -1,12 +1,21 @@
 <template>
   <div class="input-search">
     <img src="../assets/loupe.svg" alt="loupe svg" class="input-search-icon" />
-    <input type="text" placeholder="Search places" />
+    <input :value="modelValue" @input="updateInput" type="text" placeholder="Search places" />
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    modelValue: [String, Number],
+  },
+  methods: {
+    updateInput(e) {
+      this.$emit('update:modelValue', e.target.value);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

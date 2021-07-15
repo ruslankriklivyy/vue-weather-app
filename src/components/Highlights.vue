@@ -1,15 +1,18 @@
 <template>
+  <h2 class="title">Today’s Highlights</h2>
   <div class="today-highlights">
-    <uv-index :uvi="currentWeather.uvi" :currentWeather="currentWeather" />
-    <wind-status-block :currentWeather="currentWeather" />
-    <sunrise-sunset-block :currentWeather="currentWeather" />
-    <humidity :humidity="currentWeather.humidity" />
-    <visibility :visibility="currentWeather.visibility" />
-    <max-min-temp
-      :currentUnit="currentUnit"
-      :weatherMinTemp="weatherMinTemp"
-      :weatherMaxTemp="weatherMaxTemp"
-    />
+    <transition-group name="highlights">
+      <uv-index :uvi="currentWeather.uvi" :currentWeather="currentWeather" />
+      <wind-status-block :currentWeather="currentWeather" />
+      <sunrise-sunset-block :currentWeather="currentWeather" />
+      <humidity :humidity="currentWeather.humidity" />
+      <visibility :visibility="currentWeather.visibility" />
+      <max-min-temp
+        :currentUnit="currentUnit"
+        :weatherMinTemp="weatherMinTemp"
+        :weatherMaxTemp="weatherMaxTemp"
+      />
+    </transition-group>
   </div>
 </template>
 
@@ -52,6 +55,18 @@ export default {
 </script>
 
 <style lang="scss">
+.highlights-enter-active,
+.highlights-leave-active {
+  transition: all 1s ease;
+}
+.highlights-enter-from,
+.highlights-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.highlights-move {
+  transition: transform 0.8s ease;
+}
 .today-highlights {
   display: flex;
   align-items: center;
