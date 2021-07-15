@@ -1,25 +1,29 @@
 <template>
   <div class="list" v-if="currentType === 'Week'">
-    <list-weather-item
-      v-for="item in weather?.daily?.slice(1, 8)"
-      :key="item.dt"
-      :temp="item.temp"
-      :currentUnit="currentUnit"
-      :weatherDate="item.dt"
-      :currentType="currentType"
-      :weatherId="item.weather[0].id"
-    />
+    <transition-group name="list">
+      <list-weather-item
+        v-for="item in weather?.daily?.slice(1, 8)"
+        :key="item.dt"
+        :temp="item.temp"
+        :currentUnit="currentUnit"
+        :weatherDate="item.dt"
+        :currentType="currentType"
+        :weatherId="item.weather[0].id"
+      />
+    </transition-group>
   </div>
   <div class="list" v-else>
-    <list-weather-item
-      v-for="item in weather?.hourly?.slice(1, 8)"
-      :key="item.dt"
-      :temp="item.temp"
-      :currentUnit="currentUnit"
-      :weatherDate="item.dt"
-      :currentType="currentType"
-      :weatherId="item.weather[0].id"
-    />
+    <transition-group name="list">
+      <list-weather-item
+        v-for="item in weather?.hourly?.slice(1, 8)"
+        :key="item.dt"
+        :temp="item.temp"
+        :currentUnit="currentUnit"
+        :weatherDate="item.dt"
+        :currentType="currentType"
+        :weatherId="item.weather[0].id"
+      />
+    </transition-group>
   </div>
 </template>
 
@@ -48,6 +52,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.list-move {
+  transition: transform 0.8s ease;
+}
 .list {
   display: flex;
   align-items: center;

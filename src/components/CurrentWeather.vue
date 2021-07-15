@@ -1,6 +1,6 @@
 <template>
   <div class="current-weather">
-    <img :src="weatherImg" alt="weather svg" />
+    <img :src="weatherImg" class="current-weather__img" alt="weather svg" />
     <div class="current-weather__info">
       <div class="current-weather__info-city">
         {{ countryInfo?.country }}, <span>{{ countryInfo?.city }}</span>
@@ -11,8 +11,14 @@
       <div class="current-weather__info-day">
         {{ datOfWeek[day - 1] }}, <span>{{ currentTime }}</span>
       </div>
-      <div class="current-weather__info-temperature">Clouds - {{ currentWeather?.clouds }}%</div>
-      <div class="current-weather__info-percent">Rain - 30%</div>
+      <div class="current-weather__info-temperature">
+        <img src="../assets/cloudy.svg" alt="cloudy svg" />
+        <span>Clouds - {{ currentWeather?.clouds }}%</span>
+      </div>
+      <div class="current-weather__info-percent">
+        <img src="../assets/radio_filled.svg" alt="radio_filled svg" />
+        <span>{{ currentWeather?.weather[0]?.description }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -61,7 +67,7 @@ export default {
 
 <style lang="scss" scoped>
 .current-weather {
-  img {
+  &__img {
     display: block;
     width: 80%;
     height: 80%;
@@ -87,6 +93,19 @@ export default {
       margin-bottom: 20px;
       span {
         opacity: 0.7;
+      }
+    }
+    &-temperature,
+    &-percent {
+      display: flex;
+      align-items: center;
+      span::first-letter {
+        text-transform: uppercase;
+      }
+      img {
+        width: 30px;
+        height: 30px;
+        margin-right: 3px;
       }
     }
   }
