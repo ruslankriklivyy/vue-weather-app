@@ -26,9 +26,9 @@
         />
         <highlights
           v-if="currentWeather?.current"
+          :weatherMinTemp="currentWeather.daily[0].temp.min"
+          :weatherMaxTemp="currentWeather.current.temp"
           :currentUnit="currentUnit"
-          :weatherMinTemp="currentWeather?.daily[0]?.temp?.min"
-          :weatherMaxTemp="currentWeather?.daily[0]?.temp?.max"
           :currentWeather="currentWeather.current"
         />
       </div>
@@ -61,6 +61,7 @@ export default {
       currentType: 'Week',
       country: {},
       tempMax: 0,
+      tempMin: 0,
     };
   },
   mounted() {
@@ -72,6 +73,7 @@ export default {
         this.currentWeather = res;
         console.log(this.currentWeather);
         this.tempMax = getTemp(this.currentUnit, res.current.temp);
+        this.tempMin = getTemp(this.currentUnit, res.daily[0].temp.min);
       });
     } else {
       fetchGeolocation().then((res) => {
@@ -79,6 +81,7 @@ export default {
         fetchCurrentWeather(res[0], res[1]).then((res) => {
           this.currentWeather = res;
           this.tempMax = getTemp(this.currentUnit, res.current.temp);
+          this.tempMin = getTemp(this.currentUnit, res.daily[0].temp.min);
         });
       });
     }

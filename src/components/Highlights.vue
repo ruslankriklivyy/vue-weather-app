@@ -27,16 +27,16 @@ export default {
       type: Object,
       required: true,
     },
-    currentUnit: {
-      type: String,
-      required: true,
-    },
     weatherMinTemp: {
       type: Number,
       required: true,
     },
     weatherMaxTemp: {
       type: Number,
+      required: true,
+    },
+    currentUnit: {
+      type: String,
       required: true,
     },
   },

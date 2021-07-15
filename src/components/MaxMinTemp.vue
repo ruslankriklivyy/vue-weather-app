@@ -5,13 +5,13 @@
       <div class="temp-block__item">
         <img src="../assets/cold.svg" alt="cold svg" />
         <div class="today-highlights-item__index">
-          {{ minTemp }} <span class="temp-block__degree">°</span>
+          {{ getItemTemp(weatherMinTemp) }} <span class="temp-block__degree">°</span>
         </div>
       </div>
       <div class="temp-block__item">
         <img src="../assets/hot.svg" alt="hot svg" />
         <div class="today-highlights-item__index">
-          {{ maxTemp }} <span class="temp-block__degree">°</span>
+          {{ getItemTemp(weatherMaxTemp) }} <span class="temp-block__degree">°</span>
         </div>
       </div>
     </div>
@@ -36,14 +36,10 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      minTemp: 0,
-    };
-  },
-  mounted() {
-    this.minTemp = getTemp(this.currentUnit, this.weatherMinTemp);
-    this.maxTemp = getTemp(this.currentUnit, this.weatherMaxTemp);
+  methods: {
+    getItemTemp(temp) {
+      return getTemp(this.currentUnit, temp);
+    },
   },
 };
 </script>
