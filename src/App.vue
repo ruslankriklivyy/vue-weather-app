@@ -3,18 +3,11 @@
     <div class="left-section">
       <div class="content" v-if="currentWeather.current">
         <input-search v-model="searchQuery" />
-        <div class="cities" v-if="searchPlaces.length > 0">
-          <transition-group name="cities">
-            <div
-              class="cities-item"
-              v-for="city in searchPlaces"
-              :key="city.id"
-              @click="setLocation(city)"
-            >
-              <div class="cities-item__name">{{ city.name }}</div>
-            </div>
-          </transition-group>
-        </div>
+        <cities
+          v-if="searchPlaces.length > 0"
+          :searchPlaces="searchPlaces"
+          v-model:currentCity="currentCity"
+        />
         <current-weather
           :currentWeather="currentWeather.current"
           :tempMax="tempMax"
@@ -54,6 +47,7 @@ import CurrentWeather from './components/CurrentWeather.vue';
 import ListWeather from './components/ListWeather.vue';
 import Picker from './components/Picker.vue';
 import Highlights from './components/Highlights.vue';
+import Cities from './components/Cities.vue';
 import { fetchCurrentWeather, fetchGeolocation, fetchBySearchCity } from './api/api';
 import { getTemp } from './utils/utils';
 
@@ -65,10 +59,12 @@ export default {
     ListWeather,
     Picker,
     Highlights,
+    Cities,
   },
   data() {
     return {
       currentWeather: {},
+      currentCity: {},
       searchQuery: '',
       searchPlaces: [],
       currentUnit: 'C',
@@ -108,9 +104,7 @@ export default {
         this.searchPlaces = [];
       }
     },
-  },
-  methods: {
-    setLocation(obj) {
+    currentCity(obj) {
       const newObj = {
         city: obj.city,
         country: obj.countryCode,
@@ -124,8 +118,27 @@ export default {
         this.tempMin = getTemp(this.currentUnit, res.daily[0].temp.min);
       });
       this.searchPlaces = [];
+      this.searchQuery = '';
     },
   },
+  // methods: {
+  //   setLocation(obj) {
+  //     const newObj = {
+  //       city: obj.city,
+  //       country: obj.countryCode,
+  //       loc: `${obj.latitude},${obj.longitude}`,
+  //     };
+  //     this.country = newObj;
+  //     fetchCurrentWeather(obj.latitude, obj.longitude).then((res) => {
+  //       this.currentWeather = res;
+  //       console.log(this.currentWeather);
+  //       this.tempMax = getTemp(this.currentUnit, res.current.temp);
+  //       this.tempMin = getTemp(this.currentUnit, res.daily[0].temp.min);
+  //     });
+  //     this.searchPlaces = [];
+  //     this.searchQuery = '';
+  //   },
+  // },
 };
 </script>
 
@@ -142,39 +155,7 @@ body {
 body {
   background-color: #f9fafc;
 }
-.cities-enter-active,
-.cities-leave-active {
-  transition: all 1s ease;
-}
-.cities-enter-from,
-.cities-leave-to {
-  opacity: 0;
-  transform: translateY(30px);
-}
-.cities-move {
-  transition: transform 0.8s ease;
-}
-.cities {
-  position: absolute;
-  top: 100px;
-  border-radius: 10px;
-  overflow: hidden;
-  width: 70%;
-  &-item {
-    background: #f9fafc;
-    padding: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    &:hover {
-      background: #66a0fd;
-      color: #fff;
-    }
 
-    &__name {
-      font-size: 18px;
-    }
-  }
-}
 .title {
   font-size: 22px;
   margin: 30px 0 20px 0;
