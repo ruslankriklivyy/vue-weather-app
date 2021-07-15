@@ -1,4 +1,9 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import vueDebounce from 'vue-debounce';
+import App from './App.vue';
 
-createApp(App).mount('#app')
+createApp(App)
+  .use(vueDebounce, {
+    listenTo: 'input',
+  })
+  .mount('#app');

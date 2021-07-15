@@ -1,7 +1,12 @@
 <template>
   <div class="input-search">
     <img src="../assets/loupe.svg" alt="loupe svg" class="input-search-icon" />
-    <input :value="modelValue" @input="updateInput" type="text" placeholder="Search places" />
+    <input
+      :value="modelValue"
+      v-debounce:1s="updateInput"
+      type="text"
+      placeholder="Search places"
+    />
   </div>
 </template>
 
@@ -11,8 +16,8 @@ export default {
     modelValue: [String, Number],
   },
   methods: {
-    updateInput(e) {
-      this.$emit('update:modelValue', e.target.value);
+    updateInput(val) {
+      this.$emit('update:modelValue', val);
     },
   },
 };
