@@ -6,7 +6,7 @@
         {{ humidity }} <span class="today-highlights-item__percent">%</span>
       </div>
       <div className="humidity-vizualization">
-        <div className="humidity-vizualization__round" :style="{ height: vizHeight + 'px' }"></div>
+        <div className="humidity-vizualization__round" :style="{ height: humidity + '%' }"></div>
       </div>
     </div>
     <div class="today-highlights-item__descr">{{ humidityStatus }}</div>
@@ -50,9 +50,9 @@ export default {
       this.humidityStatus = 'Miserable';
     }
 
-    if (this.humidity >= 22) {
-      this.vizHeight = parseInt((this.humidity * 0.76).toFixed(1));
-    }
+    // if (this.humidity >= 22) {
+    //   this.vizHeight = parseInt((this.humidity * 0.76).toFixed(1));
+    // }
   },
 };
 </script>
