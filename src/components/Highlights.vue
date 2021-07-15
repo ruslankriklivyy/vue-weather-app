@@ -4,6 +4,12 @@
     <wind-status-block :currentWeather="currentWeather" />
     <sunrise-sunset-block :currentWeather="currentWeather" />
     <humidity :humidity="currentWeather.humidity" />
+    <visibility :visibility="currentWeather.visibility" />
+    <max-min-temp
+      :currentUnit="currentUnit"
+      :weatherMinTemp="weatherMinTemp"
+      :weatherMaxTemp="weatherMaxTemp"
+    />
   </div>
 </template>
 
@@ -12,11 +18,25 @@ import UvIndex from '../components/UvIndexBlock.vue';
 import WindStatusBlock from '../components/WindStatusBlock.vue';
 import SunriseSunsetBlock from '../components/SunriseSunsetBlock.vue';
 import Humidity from '../components/Humidity.vue';
+import Visibility from '../components/Visibility.vue';
+import MaxMinTemp from '../components/MaxMinTemp.vue';
 
 export default {
   props: {
     currentWeather: {
       type: Object,
+      required: true,
+    },
+    currentUnit: {
+      type: String,
+      required: true,
+    },
+    weatherMinTemp: {
+      type: Number,
+      required: true,
+    },
+    weatherMaxTemp: {
+      type: Number,
       required: true,
     },
   },
@@ -25,6 +45,8 @@ export default {
     WindStatusBlock,
     SunriseSunsetBlock,
     Humidity,
+    Visibility,
+    MaxMinTemp,
   },
 };
 </script>
@@ -33,13 +55,15 @@ export default {
 .today-highlights {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   &-item {
     width: 260px;
     height: 210px;
     background: #ffffff;
     border-radius: 20px;
     cursor: default;
-    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 30px;
     padding: 20px 25px;
     display: flex;
     justify-content: space-between;
@@ -47,9 +71,6 @@ export default {
     transition: transform 0.3s;
     &:hover {
       transform: scale(1.03);
-    }
-    &:first-child {
-      margin-left: 0;
     }
     &__humidity {
       display: flex;

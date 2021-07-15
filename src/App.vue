@@ -24,7 +24,13 @@
           :currentUnit="currentUnit"
           :currentType="currentType"
         />
-        <highlights v-if="currentWeather?.current" :currentWeather="currentWeather.current" />
+        <highlights
+          v-if="currentWeather?.current"
+          :currentUnit="currentUnit"
+          :weatherMinTemp="currentWeather?.daily[0]?.temp?.min"
+          :weatherMaxTemp="currentWeather?.daily[0]?.temp?.max"
+          :currentWeather="currentWeather.current"
+        />
       </div>
     </div>
   </div>
@@ -98,16 +104,18 @@ body {
   display: flex;
 }
 .left-section {
+  position: fixed;
   padding-top: 15px;
-  width: 27%;
-  height: 100vh;
+  width: 25%;
+  min-height: 100vh;
   background: #fff;
 }
 .content {
   padding: 30px;
 }
 .right-section {
-  width: 73%;
+  width: 75%;
+  margin-left: auto;
   height: 100vh;
   padding-top: 15px;
 }
