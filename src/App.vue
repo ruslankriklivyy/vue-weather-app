@@ -81,7 +81,6 @@ export default {
       const loc = fetchGeolocation();
       fetchCurrentWeather(loc[0], loc[1]).then((res) => {
         this.currentWeather = res;
-        console.log(this.currentWeather);
         this.tempMax = getTemp(this.currentUnit, res.current.temp);
         this.tempMin = getTemp(this.currentUnit, res.daily[0].temp.min);
       });
@@ -113,7 +112,6 @@ export default {
       this.country = newObj;
       fetchCurrentWeather(obj.latitude, obj.longitude).then((res) => {
         this.currentWeather = res;
-        console.log(this.currentWeather);
         this.tempMax = getTemp(this.currentUnit, res.current.temp);
         this.tempMin = getTemp(this.currentUnit, res.daily[0].temp.min);
       });
@@ -121,24 +119,6 @@ export default {
       this.searchQuery = '';
     },
   },
-  // methods: {
-  //   setLocation(obj) {
-  //     const newObj = {
-  //       city: obj.city,
-  //       country: obj.countryCode,
-  //       loc: `${obj.latitude},${obj.longitude}`,
-  //     };
-  //     this.country = newObj;
-  //     fetchCurrentWeather(obj.latitude, obj.longitude).then((res) => {
-  //       this.currentWeather = res;
-  //       console.log(this.currentWeather);
-  //       this.tempMax = getTemp(this.currentUnit, res.current.temp);
-  //       this.tempMin = getTemp(this.currentUnit, res.daily[0].temp.min);
-  //     });
-  //     this.searchPlaces = [];
-  //     this.searchQuery = '';
-  //   },
-  // },
 };
 </script>
 
