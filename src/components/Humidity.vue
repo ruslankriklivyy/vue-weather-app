@@ -49,10 +49,6 @@ export default {
     if (this.humidity > 75) {
       this.humidityStatus = 'Miserable';
     }
-
-    // if (this.humidity >= 22) {
-    //   this.vizHeight = parseInt((this.humidity * 0.76).toFixed(1));
-    // }
   },
 };
 </script>
