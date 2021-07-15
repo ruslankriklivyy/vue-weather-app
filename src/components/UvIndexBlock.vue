@@ -52,4 +52,46 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.UVIndex__diagram {
+  position: absolute;
+  width: 210px;
+  height: 100px;
+  z-index: 5;
+}
+.UVIndex__diagram-main {
+  position: absolute;
+  width: 210px;
+  height: 100px;
+  z-index: 6;
+}
+
+.UVIndex__face {
+  font-weight: 500;
+  font-size: 16px;
+  color: #bbbbbb;
+  position: absolute;
+  z-index: 7;
+}
+
+.UVIndex__title {
+  font-weight: 500;
+  font-size: 48px;
+  position: absolute;
+  z-index: 7;
+  left: 90px;
+}
+
+.UVIndex__face.six {
+  top: 25px;
+  left: 67px;
+}
+.UVIndex__face.nine {
+  top: 25px;
+  left: 135px;
+}
+.UVIndex__face.twelve {
+  top: 65px;
+  left: 191px;
+}
+</style>
