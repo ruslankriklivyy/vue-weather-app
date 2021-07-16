@@ -60,7 +60,6 @@ export default {
           Math.round(1.8 * (this.currentWeather.current.temp - 273.15) + 32),
         );
       }
-      this.$emit('update:tempMax', this.tempMax);
       this.$emit('update:modelValue', unit);
     },
     changeCurrentType(type) {
