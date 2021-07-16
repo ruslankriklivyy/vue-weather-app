@@ -73,7 +73,7 @@ export const weatherModule = {
           const locations = res.loc.split(',');
           commit('setCountry', res);
           fetchCurrentWeather(locations[0], locations[1]).then((res) => {
-            this.currentWeather = res;
+            commit('setCurrentWeather', res);
             commit('setTempMax', getTemp(state.currentUnit, res.current.temp));
             commit('setTempMin', getTemp(state.currentUnit, res.daily[0].temp.min));
           });

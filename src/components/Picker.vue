@@ -12,7 +12,7 @@
         {{ type }}
       </button>
     </div>
-    <div class="pick-measur" :v-model="modelValue" :v-model:tempMax="tempMax">
+    <div class="pick-measur">
       <button
         v-for="unit in units"
         :key="unit"
@@ -39,6 +39,10 @@ export default {
       type: String,
       required: true,
     },
+    tempMax: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
@@ -47,14 +51,17 @@ export default {
     };
   },
   methods: {
-    changeCurrentUnit(type) {
-      if (type === 'C') {
-        this.tempMax = Math.round(this.currentWeather.current.temp - 273.15);
+    changeCurrentUnit(unit) {
+      if (unit === 'C') {
+        this.$emit('update:tempMax', Math.round(this.currentWeather.current.temp - 273.15));
       } else {
-        this.tempMax = Math.round(1.8 * (this.currentWeather.current.temp - 273.15) + 32);
+        this.$emit(
+          'update:tempMax',
+          Math.round(1.8 * (this.currentWeather.current.temp - 273.15) + 32),
+        );
       }
       this.$emit('update:tempMax', this.tempMax);
-      this.$emit('update:modelValue', type);
+      this.$emit('update:modelValue', unit);
     },
     changeCurrentType(type) {
       this.$emit('update:currentType', type);

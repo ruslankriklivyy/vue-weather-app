@@ -1,7 +1,7 @@
 <template>
-  <div class="main">
+  <div class="main" v-if="currentWeather?.current">
     <div class="left-section">
-      <div class="content" v-if="currentWeather.current">
+      <div class="content">
         <div class="top">
           <input-search :model-value="searchQuery" @update:model-value="setSearchQuery" />
           <button class="btn-home" @click="fetchDataWeather">
@@ -35,6 +35,7 @@
           @update:tempMax="setTempMax"
         />
         <list-weather
+          v-if="currentWeather?.current"
           :weather="currentWeather"
           :currentUnit="currentUnit"
           :currentType="currentType"
@@ -70,7 +71,7 @@ export default {
     Highlights,
     Cities,
   },
-  mounted() {
+  created() {
     this.fetchDataWeather();
   },
   methods: {
@@ -84,9 +85,6 @@ export default {
     ...mapActions({
       fetchDataWeather: 'weather/fetchDataWeather',
     }),
-    // backToHome() {
-    //   this.fetchDataWeather();
-    // },
   },
   computed: {
     ...mapState({

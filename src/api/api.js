@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const $api_id = '113193fbf09780b61264cc0a259fc574';
 
-export const fetchCurrentWeather = async (lat, lon) => {
-  const res = await axios
+export const fetchCurrentWeather = (lat, lon) => {
+  const res = axios
     .get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${$api_id}`)
     .then(({ data }) => data);
   return res;
