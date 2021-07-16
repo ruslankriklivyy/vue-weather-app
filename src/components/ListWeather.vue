@@ -3,7 +3,7 @@
     <transition-group name="list">
       <list-weather-item
         v-for="item in weather?.daily?.slice(1, 8)"
-        :key="item.dt"
+        :key="item"
         :temp="item.temp"
         :currentUnit="currentUnit"
         :weatherDate="item.dt"
@@ -16,7 +16,7 @@
     <transition-group name="list">
       <list-weather-item
         v-for="item in weather?.hourly?.slice(1, 8)"
-        :key="item.dt"
+        :key="item"
         :temp="item.temp"
         :currentUnit="currentUnit"
         :weatherDate="item.dt"

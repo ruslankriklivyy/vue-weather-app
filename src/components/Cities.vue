@@ -3,7 +3,7 @@
     <transition-group name="cities">
       <cities-item
         v-for="city in searchPlaces"
-        :key="city.id"
+        :key="city"
         :city="city"
         @click="setLocation(city)"
       />

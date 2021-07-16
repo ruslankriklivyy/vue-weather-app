@@ -3,7 +3,7 @@
     <div class="left-section">
       <div class="content" v-if="currentWeather.current">
         <div class="top">
-          <input-search v-model="searchQuery" />
+          <input-search :model-value="searchQuery" @update:model-value="setSearchQuery" />
           <button class="btn-home" @click="backToHome">
             <img src="./assets/home.svg" alt="home svg" />
           </button>
@@ -11,7 +11,8 @@
         <cities
           v-if="searchPlaces.length > 0"
           :searchPlaces="searchPlaces"
-          v-model:currentCity="currentCity"
+          :currentCity="currentCity"
+          @update:currentCity="setCurrentCity"
         />
         <current-weather
           v-if="country.country"
@@ -25,10 +26,13 @@
     <div class="right-section">
       <div class="content">
         <picker
-          v-model="currentUnit"
-          v-model:tempMax="tempMax"
-          v-model:currentType="currentType"
+          :model-value="currentUnit"
+          :tempMax="tempMax"
+          :currentType="currentType"
           :currentWeather="currentWeather"
+          @update:model-value="setCurrentUnit"
+          @update:currentType="setCurrentType"
+          @update:tempMax="setTempMax"
         />
         <list-weather
           :weather="currentWeather"
@@ -54,8 +58,7 @@ import ListWeather from './components/ListWeather.vue';
 import Picker from './components/Picker.vue';
 import Highlights from './components/Highlights.vue';
 import Cities from './components/Cities.vue';
-import { fetchCurrentWeather, fetchGeolocation, fetchBySearchCity } from './api/api';
-import { getTemp } from './utils/utils';
+import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
   name: 'App',
@@ -67,72 +70,36 @@ export default {
     Highlights,
     Cities,
   },
-  data() {
-    return {
-      currentWeather: {},
-      currentCity: {},
-      searchQuery: '',
-      searchPlaces: [],
-      currentUnit: 'C',
-      currentType: 'Week',
-      country: {},
-      tempMax: 0,
-      tempMin: 0,
-    };
-  },
   mounted() {
     this.fetchDataWeather();
   },
-  watch: {
-    searchQuery(val) {
-      if (val !== '') {
-        this.searchPlaces = fetchBySearchCity(val).then((res) => (this.searchPlaces = res));
-      } else {
-        this.searchPlaces = [];
-      }
-    },
-    currentCity(obj) {
-      const newObj = {
-        city: obj.city,
-        country: obj.countryCode,
-        loc: `${obj.latitude},${obj.longitude}`,
-      };
-      this.country = newObj;
-      fetchCurrentWeather(obj.latitude, obj.longitude).then((res) => {
-        this.currentWeather = res;
-        this.tempMax = getTemp(this.currentUnit, res.current.temp);
-        this.tempMin = getTemp(this.currentUnit, res.daily[0].temp.min);
-      });
-      this.searchPlaces = [];
-      this.searchQuery = '';
-    },
-  },
   methods: {
-    fetchDataWeather() {
-      if (localStorage.getItem('geolocation')) {
-        const countryInfo = JSON.parse(localStorage.getItem('geolocation'));
-        this.country = countryInfo;
-        const loc = fetchGeolocation();
-        fetchCurrentWeather(loc[0], loc[1]).then((res) => {
-          this.currentWeather = res;
-          this.tempMax = getTemp(this.currentUnit, res.current.temp);
-          this.tempMin = getTemp(this.currentUnit, res.daily[0].temp.min);
-        });
-      } else {
-        fetchGeolocation().then((res) => {
-          const locations = res.loc.split(',');
-          this.country = res;
-          fetchCurrentWeather(locations[0], locations[1]).then((res) => {
-            this.currentWeather = res;
-            this.tempMax = getTemp(this.currentUnit, res.current.temp);
-            this.tempMin = getTemp(this.currentUnit, res.daily[0].temp.min);
-          });
-        });
-      }
-    },
+    ...mapMutations({
+      setSearchQuery: 'weather/setSearchQuery',
+      setCurrentUnit: 'weather/setCurrentUnit',
+      setCurrentType: 'weather/setCurrentType',
+      setCurrentCity: 'weather/setCurrentCity',
+      setTempMax: 'weather/setTempMax',
+    }),
+    ...mapActions({
+      fetchDataWeather: 'weather/fetchDataWeather',
+    }),
     backToHome() {
       this.fetchDataWeather();
     },
+  },
+  computed: {
+    ...mapState({
+      currentWeather: (state) => state.weather.currentWeather,
+      currentCity: (state) => state.weather.currentCity,
+      searchQuery: (state) => state.weather.searchQuery,
+      searchPlaces: (state) => state.weather.searchPlaces,
+      currentUnit: (state) => state.weather.currentUnit,
+      currentType: (state) => state.weather.currentType,
+      country: (state) => state.weather.country,
+      tempMax: (state) => state.weather.tempMax,
+      tempMin: (state) => state.weather.tempMin,
+    }),
   },
 };
 </script>
