@@ -2,13 +2,19 @@
   <div class="main">
     <div class="left-section">
       <div class="content" v-if="currentWeather.current">
-        <input-search v-model="searchQuery" />
+        <div class="top">
+          <input-search v-model="searchQuery" />
+          <button class="btn-home" @click="backToHome">
+            <img src="./assets/home.svg" alt="home svg" />
+          </button>
+        </div>
         <cities
           v-if="searchPlaces.length > 0"
           :searchPlaces="searchPlaces"
           v-model:currentCity="currentCity"
         />
         <current-weather
+          v-if="country.country"
           :currentWeather="currentWeather.current"
           :tempMax="tempMax"
           :currentUnit="currentUnit"
@@ -75,25 +81,7 @@ export default {
     };
   },
   mounted() {
-    if (localStorage.getItem('geolocation')) {
-      const countryInfo = JSON.parse(localStorage.getItem('geolocation'));
-      this.country = countryInfo;
-      const loc = fetchGeolocation();
-      fetchCurrentWeather(loc[0], loc[1]).then((res) => {
-        this.currentWeather = res;
-        this.tempMax = getTemp(this.currentUnit, res.current.temp);
-        this.tempMin = getTemp(this.currentUnit, res.daily[0].temp.min);
-      });
-    } else {
-      fetchGeolocation().then((res) => {
-        this.country = res;
-        fetchCurrentWeather(res[0], res[1]).then((res) => {
-          this.currentWeather = res;
-          this.tempMax = getTemp(this.currentUnit, res.current.temp);
-          this.tempMin = getTemp(this.currentUnit, res.daily[0].temp.min);
-        });
-      });
-    }
+    this.fetchDataWeather();
   },
   watch: {
     searchQuery(val) {
@@ -119,6 +107,33 @@ export default {
       this.searchQuery = '';
     },
   },
+  methods: {
+    fetchDataWeather() {
+      if (localStorage.getItem('geolocation')) {
+        const countryInfo = JSON.parse(localStorage.getItem('geolocation'));
+        this.country = countryInfo;
+        const loc = fetchGeolocation();
+        fetchCurrentWeather(loc[0], loc[1]).then((res) => {
+          this.currentWeather = res;
+          this.tempMax = getTemp(this.currentUnit, res.current.temp);
+          this.tempMin = getTemp(this.currentUnit, res.daily[0].temp.min);
+        });
+      } else {
+        fetchGeolocation().then((res) => {
+          const locations = res.loc.split(',');
+          this.country = res;
+          fetchCurrentWeather(locations[0], locations[1]).then((res) => {
+            this.currentWeather = res;
+            this.tempMax = getTemp(this.currentUnit, res.current.temp);
+            this.tempMin = getTemp(this.currentUnit, res.daily[0].temp.min);
+          });
+        });
+      }
+    },
+    backToHome() {
+      this.fetchDataWeather();
+    },
+  },
 };
 </script>
 
@@ -135,7 +150,27 @@ body {
 body {
   background-color: #f9fafc;
 }
-
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.btn-home {
+  border: 2px solid transparent;
+  background: #f9fafc;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 50px;
+  height: 48px;
+  margin-left: 10px;
+  &:hover {
+    border-color: #66a0fd;
+  }
+  img {
+    opacity: 0.7;
+  }
+}
 .title {
   font-size: 22px;
   margin: 30px 0 20px 0;

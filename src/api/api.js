@@ -24,7 +24,7 @@ export const fetchGeolocation = () => {
       }
       return axios.get(`https://ipinfo.io/${ip}?token=8e3c044be10c11`).then(({ data }) => {
         localStorage.setItem('geolocation', JSON.stringify(data));
-        return data.loc.split(',');
+        return data;
       });
     });
   }

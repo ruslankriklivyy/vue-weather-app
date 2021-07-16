@@ -26,6 +26,7 @@ export default {
 <style lang="scss" scoped>
 .input-search {
   position: relative;
+  width: 85%;
   height: 50px;
   input {
     width: 100%;
