@@ -28,8 +28,10 @@ export const weatherModule = {
     },
     setSearchQuery(state, val) {
       if (val !== '') {
+        state.searchQuery = val;
         fetchBySearchCity(val).then((res) => (state.searchPlaces = res));
       } else {
+        state.searchQuery = '';
         state.searchPlaces = [];
       }
     },

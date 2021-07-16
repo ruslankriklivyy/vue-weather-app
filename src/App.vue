@@ -4,7 +4,7 @@
       <div class="content" v-if="currentWeather.current">
         <div class="top">
           <input-search :model-value="searchQuery" @update:model-value="setSearchQuery" />
-          <button class="btn-home" @click="backToHome">
+          <button class="btn-home" @click="fetchDataWeather">
             <img src="./assets/home.svg" alt="home svg" />
           </button>
         </div>
@@ -84,9 +84,9 @@ export default {
     ...mapActions({
       fetchDataWeather: 'weather/fetchDataWeather',
     }),
-    backToHome() {
-      this.fetchDataWeather();
-    },
+    // backToHome() {
+    //   this.fetchDataWeather();
+    // },
   },
   computed: {
     ...mapState({
