@@ -72,8 +72,20 @@ export default {
     width: 80%;
     height: 80%;
     margin: 20px 0;
+    @media (max-width: 992px) {
+      width: 300px;
+      height: 300px;
+      margin: 20px auto;
+    }
+    @media (max-width: 456px) {
+      width: 260px;
+      height: 260px;
+    }
   }
   &__info {
+    @media (max-width: 992px) {
+      text-align: center;
+    }
     &-city {
       font-size: 28px;
       margin-bottom: 10px;
@@ -82,6 +94,9 @@ export default {
       display: flex;
       font-size: 58px;
       margin-bottom: 10px;
+      @media (max-width: 992px) {
+        justify-content: center;
+      }
       span {
         margin-top: 7px;
         font-size: 31px;
@@ -99,6 +114,9 @@ export default {
     &-percent {
       display: flex;
       align-items: center;
+      @media (max-width: 992px) {
+        justify-content: center;
+      }
       span::first-letter {
         text-transform: uppercase;
       }

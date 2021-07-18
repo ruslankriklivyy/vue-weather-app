@@ -69,8 +69,12 @@ export default {
 }
 .today-highlights {
   display: flex;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
+  @media (max-width: 769px) {
+    justify-content: center;
+  }
   &-item {
     width: 260px;
     height: 210px;

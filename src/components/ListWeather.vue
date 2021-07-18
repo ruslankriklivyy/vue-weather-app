@@ -67,7 +67,11 @@ export default {
 .list {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   margin-top: 30px;
+  @media (max-width: 456px) {
+    justify-content: center;
+  }
 }
 </style>

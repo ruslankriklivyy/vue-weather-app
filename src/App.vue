@@ -140,9 +140,16 @@ body {
   font-size: 22px;
   margin: 30px 0 20px 0;
   opacity: 0.5;
+  @media (max-width: 769px) {
+    text-align: center;
+  }
 }
 .main {
   display: flex;
+  @media (max-width: 992px) {
+    justify-content: center;
+    flex-direction: column;
+  }
 }
 .left-section {
   position: fixed;
@@ -150,6 +157,13 @@ body {
   width: 25%;
   min-height: 100vh;
   background: #fff;
+  @media (max-width: 992px) {
+    position: static;
+    min-height: 100%;
+    background: transparent;
+    width: 100%;
+    text-align: center;
+  }
 }
 .content {
   padding: 30px;
@@ -160,5 +174,8 @@ body {
   margin-left: auto;
   height: 100vh;
   padding-top: 15px;
+  @media (max-width: 992px) {
+    width: 100%;
+  }
 }
 </style>
