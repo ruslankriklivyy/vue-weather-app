@@ -9,7 +9,7 @@
         {{ tempMax }} <span>°{{ currentUnit }}</span>
       </div>
       <div class="current-weather__info-day">
-        {{ datOfWeek[day - 1] }}, <span>{{ currentTime }}</span>
+        {{ datOfWeek[day - 1] ?? datOfWeek[6] }}, <span>{{ currentTime }}</span>
       </div>
       <div class="current-weather__info-temperature">
         <img src="../assets/cloudy.svg" alt="cloudy svg" />
@@ -48,7 +48,7 @@ export default {
   },
   data() {
     return {
-      datOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday '],
+      datOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       day: new Date().getDay(),
       currentTime: getCreatedTime(new Date().getTime()),
       weatherImg: '',
