@@ -68,11 +68,18 @@ export default {
   transition: transform 0.8s ease;
 }
 .today-highlights {
+  $self: &;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
   @media (max-width: 769px) {
+    justify-content: space-between;
+    #{$self}-item {
+      margin-right: 0;
+    }
+  }
+  @media (max-width: 580px) {
     justify-content: center;
   }
   &-item {
