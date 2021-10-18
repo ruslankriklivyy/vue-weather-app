@@ -3,7 +3,7 @@
     <div class="left-section">
       <div class="content">
         <div class="top">
-          <input-search :model-value="searchQuery" @update:model-value="setSearchQuery" />
+          <input-search :modelValue="searchQuery" @update:modelValue="setSearchQuery" />
           <button class="btn-home" @click="fetchDataWeather">
             <img src="./assets/home.svg" alt="home svg" />
           </button>
@@ -26,11 +26,11 @@
     <div class="right-section">
       <div class="content">
         <picker
-          :model-value="currentUnit"
+          :currentUnit="currentUnit"
           :tempMax="tempMax"
           :currentType="currentType"
           :currentWeather="currentWeather"
-          @update:model-value="setCurrentUnit"
+          @update:currentUnit="setCurrentUnit"
           @update:currentType="setCurrentType"
           @update:tempMax="setTempMax"
         />

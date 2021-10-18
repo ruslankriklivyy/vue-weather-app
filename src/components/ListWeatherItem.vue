@@ -1,14 +1,14 @@
 <template>
   <div class="list-item">
     <div class="list-item__day">
-      {{ currentType === 'Week' ? new Date(weatherDate * 1000).toString().slice(0, 4) : getTime() }}
+      {{ currentType === 'Week' ? new Date(weatherDate * 1000).toString().slice(0, 4) : getTime }}
     </div>
     <div class="list-item__img">
       <img :src="weatherImg" alt="cloud svg" />
     </div>
     <div class="list-item__temperature">
-      {{ currentType === 'Week' ? getItemTemp(temp.max) : getItemTemp(temp) }}°
-      <span v-if="currentType === 'Week'">{{ getItemTemp(temp.min) }}°</span>
+      {{ currentType === 'Week' ? getCurrentTemp(temp.max) : getCurrentTemp(temp) }}°
+      <span v-if="currentType === 'Week'">{{ getCurrentTemp(temp.min) }}°</span>
     </div>
   </div>
 </template>
@@ -49,9 +49,11 @@ export default {
     this.weatherImg = changeWeatherImg(this.weatherId);
   },
   methods: {
-    getItemTemp(temp) {
+    getCurrentTemp(temp) {
       return getTemp(this.currentUnit, temp);
     },
+  },
+  computed: {
     getTime() {
       return getCreatedTime(new Date(this.weatherDate * 1000));
     },

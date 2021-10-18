@@ -18,7 +18,7 @@
         :key="unit"
         @click="changeCurrentUnit(unit)"
         :class="{
-          active: modelValue === unit,
+          active: currentUnit === unit,
         }"
       >
         °{{ unit }}
@@ -30,7 +30,7 @@
 <script>
 export default {
   props: {
-    modelValue: String,
+    currentUnit: String,
     currentWeather: {
       type: Object,
       required: true,
@@ -60,7 +60,7 @@ export default {
           Math.round(1.8 * (this.currentWeather.current.temp - 273.15) + 32),
         );
       }
-      this.$emit('update:modelValue', unit);
+      this.$emit('update:currentUnit', unit);
     },
     changeCurrentType(type) {
       this.$emit('update:currentType', type);

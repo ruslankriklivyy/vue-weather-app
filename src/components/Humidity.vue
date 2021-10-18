@@ -28,26 +28,36 @@ export default {
     };
   },
   mounted() {
-    if (this.humidity <= 50) {
-      this.humidityStatus = 'Dry';
-    }
-    if (this.humidity > 50 && this.humidity <= 55) {
-      this.humidityStatus = 'Pleasant';
-    }
-    if (this.humidity > 55 && this.humidity <= 60) {
-      this.humidityStatus = 'Comfortable';
-    }
-    if (this.humidity > 60 && this.humidity <= 65) {
-      this.humidityStatus = 'Sticky';
-    }
-    if (this.humidity > 65 && this.humidity <= 70) {
-      this.humidityStatus = 'Uncomfortable';
-    }
-    if (this.humidity > 70 && this.humidity <= 75) {
-      this.humidityStatus = 'Oppressive';
-    }
-    if (this.humidity > 75) {
-      this.humidityStatus = 'Miserable';
+    switch (true) {
+      case this.humidity <= 50:
+        this.humidityStatus = 'Dry';
+        break;
+
+      case this.humidity > 50 && this.humidity <= 55:
+        this.humidityStatus = 'Pleasant';
+        break;
+
+      case this.humidity > 55 && this.humidity <= 60:
+        this.humidityStatus = 'Comfortable';
+        break;
+
+      case this.humidity > 60 && this.humidity <= 65:
+        this.humidityStatus = 'Sticky';
+        break;
+
+      case this.humidity > 65 && this.humidity <= 70:
+        this.humidityStatus = 'Uncomfortable';
+        break;
+
+      case this.humidity > 70 && this.humidity <= 75:
+        this.humidityStatus = 'Oppressive';
+        break;
+
+      case this.humidity > 75:
+        this.humidityStatus = 'Miserable';
+        break;
+      default:
+        break;
     }
   },
 };
