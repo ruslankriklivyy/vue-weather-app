@@ -3,17 +3,12 @@
     <div class="left-section">
       <div class="content">
         <div class="top">
-          <input-search :modelValue="searchQuery" @update:modelValue="setSearchQuery" />
+          <input-search />
           <button class="btn-home" @click="fetchDataWeather">
             <img src="./assets/home.svg" alt="home svg" />
           </button>
         </div>
-        <cities
-          v-if="searchPlaces.length > 0"
-          :searchPlaces="searchPlaces"
-          :currentCity="currentCity"
-          @update:currentCity="setCurrentCity"
-        />
+        <cities />
         <current-weather
           v-if="country.country"
           :currentWeather="currentWeather.current"
@@ -34,12 +29,7 @@
           @update:currentType="setCurrentType"
           @update:tempMax="setTempMax"
         />
-        <list-weather
-          v-if="currentWeather?.current"
-          :weather="currentWeather"
-          :currentUnit="currentUnit"
-          :currentType="currentType"
-        />
+        <list-weather v-if="currentWeather?.current" />
         <highlights
           v-if="currentWeather?.current"
           :weatherMinTemp="currentWeather.daily[0].temp.min"
@@ -76,10 +66,8 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setSearchQuery: 'weather/setSearchQuery',
       setCurrentUnit: 'weather/setCurrentUnit',
       setCurrentType: 'weather/setCurrentType',
-      setCurrentCity: 'weather/setCurrentCity',
       setTempMax: 'weather/setTempMax',
     }),
     ...mapActions({
@@ -90,8 +78,6 @@ export default {
     ...mapState({
       currentWeather: (state) => state.weather.currentWeather,
       currentCity: (state) => state.weather.currentCity,
-      searchQuery: (state) => state.weather.searchQuery,
-      searchPlaces: (state) => state.weather.searchPlaces,
       currentUnit: (state) => state.weather.currentUnit,
       currentType: (state) => state.weather.currentType,
       country: (state) => state.weather.country,

@@ -1,6 +1,6 @@
 <template>
-  <div class="cities" v-if="searchPlaces.length > 0">
-    <transition-group name="cities">
+  <div class="cities" v-if="searchPlaces?.length > 0">
+    <transition-group name="cities" tag="div">
       <cities-item
         v-for="city in searchPlaces"
         :key="city"
@@ -12,22 +12,25 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
 import CitiesItem from './CitiesItem.vue';
 
 export default {
-  props: {
-    searchPlaces: {
-      type: Array,
-      required: true,
-    },
-  },
   components: {
     CitiesItem,
   },
   methods: {
     setLocation(city) {
-      this.$emit('update:currentCity', city);
+      this.setCurrentCity(city);
     },
+    ...mapMutations({
+      setCurrentCity: 'weather/setCurrentCity',
+    }),
+  },
+  computed: {
+    ...mapState({
+      searchPlaces: (state) => state.weather.searchPlaces,
+    }),
   },
 };
 </script>

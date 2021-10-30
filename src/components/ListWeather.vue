@@ -4,9 +4,7 @@
       v-for="item in weather?.daily?.slice(1, 8)"
       :key="item"
       :temp="item.temp"
-      :currentUnit="currentUnit"
       :weatherDate="item.dt"
-      :currentType="currentType"
       :weatherId="item.weather[0].id"
     />
   </div>
@@ -15,34 +13,25 @@
       v-for="item in weather?.hourly?.slice(1, 8)"
       :key="item"
       :temp="item.temp"
-      :currentUnit="currentUnit"
       :weatherDate="item.dt"
-      :currentType="currentType"
       :weatherId="item.weather[0].id"
     />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import ListWeatherItem from './ListWeatherItem.vue';
 
 export default {
   components: {
     ListWeatherItem,
   },
-  props: {
-    weather: {
-      type: Object,
-      required: true,
-    },
-    currentType: {
-      type: String,
-      required: true,
-    },
-    currentUnit: {
-      type: String,
-      required: true,
-    },
+  computed: {
+    ...mapState({
+      weather: (state) => state.weather.currentWeather,
+      currentType: (state) => state.weather.currentType,
+    }),
   },
 };
 </script>

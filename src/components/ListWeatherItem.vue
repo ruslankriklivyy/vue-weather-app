@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { getTemp, getCreatedTime } from '../utils/utils';
 import { changeWeatherImg } from '../utils/changeWeatherImg';
 
@@ -23,16 +24,8 @@ export default {
       type: Object,
       required: true,
     },
-    currentUnit: {
-      type: String,
-      required: true,
-    },
     weatherId: {
       type: Number,
-      required: true,
-    },
-    currentType: {
-      type: String,
       required: true,
     },
     weatherDate: {
@@ -57,6 +50,10 @@ export default {
     getTime() {
       return getCreatedTime(new Date(this.weatherDate * 1000));
     },
+    ...mapState({
+      currentUnit: (state) => state.weather.currentUnit,
+      currentType: (state) => state.weather.currentType,
+    }),
   },
 };
 </script>

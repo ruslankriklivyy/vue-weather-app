@@ -2,7 +2,7 @@
   <div class="input-search">
     <img src="../assets/loupe.svg" alt="loupe svg" class="input-search-icon" />
     <input
-      :value="modelValue"
+      :value="searchQuery"
       v-debounce:1s="updateInput"
       type="text"
       placeholder="Search places"
@@ -11,14 +11,21 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+
 export default {
-  props: {
-    modelValue: [String, Number],
+  computed: {
+    ...mapState({
+      searchQuery: (state) => state.weather.searchQuery,
+    }),
   },
   methods: {
     updateInput(val) {
-      this.$emit('update:modelValue', val);
+      this.setSearchQuery(val);
     },
+    ...mapMutations({
+      setSearchQuery: 'weather/setSearchQuery',
+    }),
   },
 };
 </script>
